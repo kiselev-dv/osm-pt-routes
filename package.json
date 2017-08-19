@@ -1,0 +1,11 @@
+{
+  "name": "osm-pt-routes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "leaflet": "^1.1.0",
+    "angular": "^1.6.5",
+    "ng-handsontable": "^0.13.0"
+  }
+}

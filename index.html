@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/leaflet/dist/leaflet.css">
+
+    <link rel="stylesheet" media="screen" href="node_modules/handsontable/dist/handsontable.min.css">
+    <link rel="stylesheet" media="screen" href="node_modules/pikaday/css/pikaday.css">
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/leaflet/dist/leaflet.js"></script>
+
+    <script src="node_modules/zeroclipboard/dist/ZeroClipboard.min.js"></script>
+    <script src="node_modules/pikaday/pikaday.js"></script>
+    <script src="node_modules/moment/min/moment.min.js"></script>
+    <script src="node_modules/numbro/dist/numbro.min.js"></script>
+    <script src="node_modules/handsontable/dist/handsontable.min.js"></script>
+    <script src="node_modules/ng-handsontable/dist/ngHandsontable.js"></script>
+
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/overpass.js"></script>
+    <script src="assets/js/gtfs.js"></script>
+    <script src="assets/js/route.js"></script>
+    <script src="assets/js/map.js"></script>
+
+    <script src="assets/js/routes-panel.js"></script>
+</head>
+
+<body ng-app="osmpt">
+    <div id="map"></div>
+    <div id="ui" ng-controller="RoutesPanelCtrl">
+        <div class="routes-list" ng-hide="selectedRoute">
+            <div class="routes-list-header">
+                <div class="button" ng-click="updateRoutes()" ng-bind="routes ? 'Update routes' : 'Load routes'"></div>
+            </div>
+            <div ng-repeat="route in routes" class="route-container" ng-include="'assets/templates/route.html'">
+            </div>
+        </div>
+        <div class="route-details" ng-if="selectedRoute">
+            <div ng-init="route = selectedRoute">
+                <div class="route-way-schema" class="route-container" ng-include="'assets/templates/route.html'"></div>
+                <div class="route-stops">
+                    <div class="route-stops-table">
+                        <hot-table datarows="listStops(route)" row-headers="true" 
+                            manual-row-move on-after-row-move="rowMoved"
+                            settings="{contextMenu: ['row_above', 'row_below', 'remove_row'], 
+                                       afterSelection: rowSelected, 
+                                       afterRemoveRow: rowRemoved,
+                                       afterInit: afterTableInit}">
+                            <hot-column data="rowId" renderer="platformRenderer" readonly title="'Platform'"></hot-column>
+                            <hot-column data="role" title="'Role'" type="'text'"></hot-column>
+                            <hot-column data="tags.ref" title="'Ref'" type="'text'"></hot-column>
+                            <hot-column data="tags.name" title="'Name'" type="'text'"></hot-column>
+                        </hot-table>
+                    </div>
+                    <div class="route-stops-table">
+                        <div ng-hide="extStops">
+                            <div>Load CSV with stops</div>
+                            <textarea id="stopsTextarea" ng-model="stopsText" rows="15"></textarea>
+                            <div ng-show="stopsText" ng-click="extStops = parseStops(stopsText)">parse</div>
+                        </div>
+                        <hot-table datarows="extStops" ng-show="extStops">
+                            <hot-column data="num" title="'#'"></hot-column>
+                            <hot-column data="ref" title="'ref'"></hot-column>
+                            <hot-column data="name" title="'name'" width="400"></hot-column>
+                        </hot-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

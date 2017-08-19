@@ -1,0 +1,71 @@
+#map {
+    height: 500px;
+}
+#ui {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+.route-container {
+    margin-bottom: 25px;
+}
+.route-segment {
+    margin-right: 2px;
+    white-space: nowrap;
+}
+.segment-header {
+    font-size: 12px;
+}
+.route-segment-way {
+    margin-right: 2px;
+}
+.route-gap-z {
+    margin-right: 8px;
+}
+.route-stops {
+    margin-top: 25px;
+}
+.route-stops-table {
+    float: left;
+    width: 800px;
+}
+#stopsTextarea {
+    width: 90%;
+}
+.route-stops-info {
+    margin-bottom: 5px;
+}
+.stop-source-button {
+    width: 100%;
+}
+.segment-motorway,
+.segment-motorway_link {
+    background-color: #CAFF7A;
+}
+.segment-trunk,
+.segment-trunk_link {
+    background-color: #CAFF7A;
+}
+.segment-primary,
+.segment-primary_link {
+    background-color: #FFB68C;
+}
+.segment-secondary,
+.segment-secondary_link {
+    background-color: #FFD58C;
+}
+.segment-tertiary,
+.segment-tertiary_link {
+    background-color: #FFF78C;
+}
+.segment-residential,
+.segment-residential_link,
+.segment-unclassified {
+    background-color: #E0E0E0;
+}
+.segment-service,
+.segment-service_link {
+    background-color: #DBFFFA;
+}
+.highlited {
+    background-color: #FFFF00;
+}

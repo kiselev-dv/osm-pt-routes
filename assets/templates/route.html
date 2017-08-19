@@ -1,0 +1,41 @@
+<div class="route-header">
+    <span ng-click="activeRoute = route" class="route-title" ng-bind="route.relation.tags.name"></span>
+    <span ng-click="activeRoute = route" class="route-ref" ng-bind="route.relation.tags.ref"></span>
+    <a class="button" ng-click="focusOnRoute(route)">focus</a>
+    <a class="open-osm" href="https://osm.org/relation/{{route.relation.id}}">osm</a>
+</div>
+<div class="route-stops-info">
+    <span>Stops: </span>
+    <span ng-bind="listStops(route).length"></span>
+</div>
+<div class="ways">
+    <span class="route-segment" ng-repeat="segment in listRouteSegments(route)">
+        <a ng-mouseenter="$parent.hilightNodeId = segment.nodeA"
+            ng-mouseleave="$parent.hilightNodeId = 0"
+            ng-class="{'highlited' : $parent.hilightNodeId == segment.nodeA}"
+            class="route-gap route-gap-{{segment.first ? 's' : 'a'}}"
+            href="https://osm.org/node/{{segment.nodeA}}"
+            ng-bind="segment.first ? 's' : 'a'"></a>
+        <span ng-repeat="w in listSegmentWays(segment)" 
+            ng-class="{'route-segment-way-sibling': w.sibling}"
+            class="route-segment segment-{{w.hwtype}}"
+            ng-hide="w.sibling && !segment.expanded">
+            <span ng-bind="w.title"></span>
+            <a ng-show="segment.expanded" class="open-osm" href="https://osm.org/way/{{w.wayid}}">osm</a>
+        </span>
+        <span class="segment-header">
+        <span>(</span>
+        <span class="segment-ways-counter-value">{{listSegmentWays(segment).length}}</span>
+        <span>ways</span>
+        <span ng-hide="segment.expanded" ng-click="segment.expanded = true">expand</span>
+        <span ng-show="segment.expanded" ng-click="segment.expanded = false">collapse</span>
+        <span>)</span>
+    </span>
+    <a ng-mouseenter="$parent.hilightNodeId = segment.nodeZ" 
+        ng-mouseleave="$parent.hilightNodeId = 0" 
+        ng-class="{'highlited' : $parent.hilightNodeId == segment.nodeZ}" 
+        class="route-gap route-gap-{{segment.last ? 'e' : 'z'}}" 
+        href="https://osm.org/node/{{segment.nodeZ}}"
+        ng-bind="segment.last ? 'e' : 'z'"></a>
+    </span>
+</div>
