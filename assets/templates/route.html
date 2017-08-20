@@ -1,7 +1,7 @@
 <div class="route-header">
     <span ng-click="activeRoute = route" class="route-title" ng-bind="route.relation.tags.name"></span>
     <span ng-click="activeRoute = route" class="route-ref" ng-bind="route.relation.tags.ref"></span>
-    <a class="button" ng-click="focusOnRoute(route)">focus</a>
+    <button ng-click="focusOnRoute(route)" >focus</button>
     <a class="open-osm" href="https://osm.org/relation/{{route.relation.id}}">osm</a>
 </div>
 <div class="route-stops-info">

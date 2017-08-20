@@ -56,7 +56,9 @@ Route.prototype.listStops = function() {
                     rowId: rowId,
                     subj: (node || way),
                     tags: (node || way).tags,
-                    role: ref.role
+                    role: ref.role,
+                    ref: (node || way).tags.ref,
+                    name: (node || way).tags.name
                 });
             }
         }

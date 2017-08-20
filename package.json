@@ -2,6 +2,16 @@
   "name": "osm-pt-routes",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "Apache-2.0",
+  "description": "OpenStreetMap Public Transport routes relations editor.",
+  "bugs": { 
+    "url" : "https://github.com/kiselev-dv/osm-pt-routes/issues",
+    "email" : "d.kiselev@yahoo.com"
+  },
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/kiselev-dv/osm-pt-routes.git"
+  },
   "dependencies": {
     "jquery": "^3.2.1",
     "leaflet": "^1.1.0",

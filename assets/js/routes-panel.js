@@ -1,6 +1,6 @@
 osmpt.controller("RoutesPanelCtrl", [
-    '$scope', 'osmpt-overpass', 'osmpt-map', 'osmpt-gtfs',
-    function($scope, overpass, map, gtfs) {
+    '$scope', 'osmpt-overpass', 'osmpt-map', 'osmpt-gtfs', 'osmpt-changes',
+    function($scope, overpass, map, gtfs, changes) {
 
         function updateScope(data) {
             var routes = [];
@@ -101,7 +101,11 @@ osmpt.controller("RoutesPanelCtrl", [
             $scope.selectedRoute = route;
             showStops(route.stops);
             showRoute(route.wayMembers);
-        }
+        };
+
+        $scope.backToRoutes = function() {
+            $scope.selectedRoute = null;
+        };
 
         function showRoute(ways) {
             map.showWays(ways);
@@ -169,6 +173,14 @@ osmpt.controller("RoutesPanelCtrl", [
             updateStopsTable(this);
         }
 
+        $scope.beforeRowRemoved = function(index, amount) {
+            var removed = [];
+            for(var i = index; i < index + amount; i++) {
+                removed.push(this.getDataAtRow(i)[0]);
+            }
+            $scope.selectedRoute.removed = removed;
+        };
+
         $scope.rowRemoved = function() {
             updateStopsTable(this);
             map.clearFocus();
@@ -228,9 +240,11 @@ osmpt.controller("RoutesPanelCtrl", [
             $(td).empty().append($button);
         };
 
-        function getChanges() {
-            var table = $scope.tableInstance;
-            
+        // Todo: move to separate service
+        $scope.getChanges = function(route, table) {
+            var changed = changes.getChanges(route, table);
+            var changeset = changes.asChangesetXML(changed, 123);
+            console.log(changeset);
         }
 
         function updateStopsTable(table) {
